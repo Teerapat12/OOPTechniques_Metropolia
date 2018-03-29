@@ -22,6 +22,8 @@ object Main{
     val class12 = MyClass1("API", 5)
     val class13 = MyClass1("Data", 5)
     val class14 = MyClass1("Error", 5)
+
+    // How to hide the normal constructor from the user (new MyClass1)
     println(class11.name)
 
     // Number 4

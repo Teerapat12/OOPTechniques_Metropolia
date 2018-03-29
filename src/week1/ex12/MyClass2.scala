@@ -7,7 +7,7 @@ class MyClass2(private val _name:String = "no name", private val _credits: Integ
   def this(credits: Integer){this("no name", credits)}  // What's the different between ){} and )={}
   def addCredits(n_credits: Integer): MyClass2 = {
     new MyClass2(_name, _credits+n_credits)
-    //this(_name, _credits+n_credits)
+//    this(_name, _credits+n_credits)
   }
 }
 

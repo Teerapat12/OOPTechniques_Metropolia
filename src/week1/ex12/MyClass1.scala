@@ -10,7 +10,7 @@ class MyClass1(private var _name:String = "no name", private var _credits: Integ
 object MyClass1 {
   private var classNumber = 0
   private val maxClass = 3
-  def apply(_name:String, _credits:Integer): MyClass1= {
+  def apply(_name:String, _credits:Integer): MyClass1 = {
     if(classNumber<maxClass) {
       classNumber +=1
       new MyClass1(_name, _credits)
