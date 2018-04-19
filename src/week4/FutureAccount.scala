@@ -3,6 +3,7 @@ package week4
 import java.util.concurrent.locks.ReentrantLock
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class FutureAccount(private val account_holder: String = "no name", private var balance: Double = 0, private val remaining_credit: Double = 100) {
 
@@ -15,12 +16,14 @@ class FutureAccount(private val account_holder: String = "no name", private var 
     // Lock
     Future {
       a_lock.lock()
-      if (withdraw_money > balance) {
+      if(withdraw_money > balance){
         a_lock.unlock()
       }
       else {
+
         this.balance = this.balance - withdraw_money
         a_lock.unlock()
+
       }
     }
     true
@@ -39,5 +42,5 @@ class FutureAccount(private val account_holder: String = "no name", private var 
   def status() = {
     println(s"Back account of ${this.account_holder} has a balacne of ${this.balance} and remaining credits of ${this.remaining_credit}")
   }
-  
+
 }
