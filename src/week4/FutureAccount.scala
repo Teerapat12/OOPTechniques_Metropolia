@@ -2,6 +2,8 @@ package week4
 
 import java.util.concurrent.locks.ReentrantLock
 
+import scala.concurrent.Future
+
 class FutureAccount(private val account_holder: String = "no name", private var balance: Double = 0, private val remaining_credit: Double = 100) {
 
   val a_lock = new ReentrantLock()
@@ -11,23 +13,26 @@ class FutureAccount(private val account_holder: String = "no name", private var 
   def withdraw(withdraw_money: Double): Boolean = {
 
     // Lock
-    a_lock.lock()
-    if(withdraw_money > balance){
-      a_lock.unlock()
-      false
+    Future {
+      a_lock.lock()
+      if (withdraw_money > balance) {
+        a_lock.unlock()
+      }
+      else {
+        this.balance = this.balance - withdraw_money
+        a_lock.unlock()
+      }
     }
-    else {
-      this.balance =  this.balance - withdraw_money
-      a_lock.unlock()
-      true
-    }
+    true
   }
 
   def deposit(dep_money: Double): Boolean = {
     // Lock
-    a_lock.lock()
-    this.balance += dep_money
-    a_lock.unlock()
+    Future {
+      a_lock.lock()
+      this.balance += dep_money
+      a_lock.unlock()
+    }
     true
   }
 
